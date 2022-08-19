@@ -53,6 +53,9 @@ td {
 th {
   text-align: left;
 }
+tr{
+  font-weight: 500;
+}
 
 span{
   display: block;

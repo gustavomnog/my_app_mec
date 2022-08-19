@@ -1,6 +1,8 @@
 import { Container, Tabela, Titulo } from "./styles"
 
-const CardMecauto = ({anu, anu2, anu3, sem, sem2, tri, men}) => {
+const CardMecauto = ({anu, anu2, anu3, sem, sem2, tri, men, valorSistemaMec}) => {
+  const {ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN} = valorSistemaMec
+  
   return (
     <Container>
       <Titulo>
@@ -23,29 +25,29 @@ const CardMecauto = ({anu, anu2, anu3, sem, sem2, tri, men}) => {
               <th>ANUAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>{anu}</td>
-              <td>{anu2}</td>
-              <td>{anu3}</td>
+              <td>{ANU.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{ANU2.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{ANU3.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
             </tr>
             <tr className="sem">
               <th>SEMESTRAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>{sem}</td>
-              <td>{sem2}</td>
+              <td>{SEM.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{SEM2.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
               <td>-</td>
             </tr>
             <tr className="tri">
               <th>TRIMESTRAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>{tri}</td>
+              <td>{TRI.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>
             <tr className="men">
               <th>MENSAL:</th>
-              <td>{men}</td>
+              <td>{MEN.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>

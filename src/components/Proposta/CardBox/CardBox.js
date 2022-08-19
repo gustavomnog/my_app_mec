@@ -1,12 +1,13 @@
 import { Container, Tabela, Titulo } from "./styles"
 
-const CardBox = () => {
+const CardBox = ({valorSistemaBox}) => {
+  const {ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN} = valorSistemaBox
   return (
     <Container>
       <Titulo>
         <span>MECAUTO-BOX</span>
         <span>Sistema com funções mais básicas.</span>
-        <span><a href="#"><b>CLIQUE AQUI</b></a> para comprar as diferenças</span>
+        <span><a href="/"><b>CLIQUE AQUI</b></a> para comprar as diferenças</span>
       </Titulo>
       <Tabela>
         <table>
@@ -24,29 +25,29 @@ const CardBox = () => {
               <th>ANUAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>valor</td>
-              <td>valor</td>
-              <td>valor</td>
+              <td>{ANU.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{ANU2.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{ANU3.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
             </tr>
             <tr className="sem">
               <th>SEMESTRAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>valor</td>
-              <td>valor</td>
+              <td>{SEM.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{SEM2.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
             </tr>
             <tr className="tri">
               <th>TRIMESTRAL:
                 <span>Desconto de 28%</span>
               </th>
-              <td>valor</td>
+              <td>{TRI.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>
             <tr className="men">
               <th>MENSAL:</th>
-              <td>valor</td>
+              <td>{MEN.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>
