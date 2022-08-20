@@ -1,6 +1,6 @@
 import { Container, Tabela, Titulo } from "./styles"
 
-const CardMecauto = ({anu, anu2, anu3, sem, sem2, tri, men, valorSistemaMec}) => {
+const CardMecauto = ({valorSistemaMec, acessos}) => {
   const {ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN} = valorSistemaMec
   
   return (
@@ -13,7 +13,7 @@ const CardMecauto = ({anu, anu2, anu3, sem, sem2, tri, men, valorSistemaMec}) =>
         <table>
           <tbody>
             <tr className="acesso">
-              <th colSpan="4">Acessos simultâneos:5 *</th>
+              <th colSpan="4">Acessos simultâneos:{acessos + 5} *</th>
             </tr>
             <tr className="title">
               <th>&nbsp;</th>

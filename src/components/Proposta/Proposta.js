@@ -4,20 +4,28 @@ import axios from "axios"
 import Topo from "./Topo/Topo"
 import Orcamento from "./Orcamento/Orcamento"
 import Loading from "../Loading/Loading"
+import valorTotal from "../Acessos/Acessos"
 
 
 const Proposta = () => {
 
   const [nome, setNome] = useState()
   const [validade, setValidade] = useState(new Date())
+  const [acessos, setAcessos] = useState(0)
+  const [descontoFilial, setDescontoFilial] = useState(0)
   const [listaAtual, setListaAtual] = useState([])
-  const [valoresMecauto, setValoresMecauto] = useState([{}])
-  const [valoresBox, setValoresBox] = useState([{}])
+  const [totalMecauto, setTotalMecauto] = useState({})
+  const [totalBox, setTotalBox] = useState({})
+
+
+
 
   const [carregando, setCarregando] = useState(true)
 
 
   useEffect(() => {
+    let valoresMecauto = []
+    let valoresBox = []
     let listaModulos = []
     let modulosProposta = []
 
@@ -27,6 +35,8 @@ const Proposta = () => {
         .then(({ data }) => {
           setNome(data.CM_NOME)
           setValidade(new Date(data.CM_DATA_VALIDADE.substring(0, 10) + 'T01:00:00'))
+          setAcessos(data.CM_ACESSOS)
+          setDescontoFilial(data.CM_DESCONTO_FILIAL)
         })
 
       await axios.get('https://www.sistemacicom.com.br/api/modulos/435')
@@ -51,29 +61,64 @@ const Proposta = () => {
           MEN: modulo.CM_VAL_MEN / 100,
           MARC: selecionado ? true : false
         }
-
-
       })
 
       setListaAtual(lista)
 
 
       await axios.get('https://www.sistemacicom.com.br/api/proposta/precosist/22')
-        .then(({ data }) => {
-          setValoresMecauto(data)
-        })
+        .then(({ data }) => valoresMecauto = data)
 
       await axios.get('https://www.sistemacicom.com.br/api/proposta/precosist/35')
-        .then(({ data }) => {
-          setValoresBox(data)
-        })
+        .then(({ data }) => valoresBox = data)
+
+
+      const valoresModulos = {
+        ANU: 0,
+        ANU2: 0,
+        ANU3: 0,
+        ANU4: 0,
+        SEM: 0,
+        SEM2: 0,
+        TRI: 0,
+        MEN: 0,
+      }
+
+      const marcados = lista.filter(modulo => modulo.MARC === true)
+
+      marcados.forEach(modulo => {
+        for (const i in valoresModulos) {
+          valoresModulos[i] = valoresModulos[i] + modulo[i]
+        }
+      })
+
+
+      let valorMecModulos = valoresMecauto
+      for (const i in valorMecModulos) {
+        valorMecModulos[i] = valorMecModulos[i] + valoresModulos[i]
+      }
+
+      const valorTotalMec = valorTotal(valorMecModulos, descontoFilial, acessos)
+      setTotalMecauto(valorTotalMec)
+
+
+
+      let valorBoxModulos = valoresBox
+      for (const i in valorBoxModulos) {
+        valorBoxModulos[i] = valorBoxModulos[i] + valoresModulos[i]
+      }
+
+      const valorTotalBox = valorTotal(valorBoxModulos, descontoFilial, acessos)
+
+      setTotalBox(valorTotalBox)
+
       setCarregando(false)
-
+      
     }
-
     Consultar()
-
+    
   }, [])
+  
 
   if (carregando) {
     return (<Loading />)
@@ -81,7 +126,13 @@ const Proposta = () => {
     return (
       <>
         <Topo nome={nome} validade={validade} />
-        <Orcamento lista={listaAtual} valoresMecauto={valoresMecauto} valoresBox={valoresBox} />
+        <Orcamento
+          lista={listaAtual}
+          valorTotalMec={totalMecauto}
+          valorTotalBox={totalBox}
+          descontoFilial={descontoFilial}
+          acessos={acessos}
+        />
       </>
     )
   }

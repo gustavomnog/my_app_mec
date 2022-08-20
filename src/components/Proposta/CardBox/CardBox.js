@@ -1,6 +1,6 @@
 import { Container, Tabela, Titulo } from "./styles"
 
-const CardBox = ({valorSistemaBox}) => {
+const CardBox = ({valorSistemaBox, acessos}) => {
   const {ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN} = valorSistemaBox
   return (
     <Container>
@@ -13,7 +13,7 @@ const CardBox = ({valorSistemaBox}) => {
         <table>
           <tbody>
             <tr className="acesso">
-              <th colSpan="4">Acessos simultâneos:5 *</th>
+              <th colSpan="4">Acessos simultâneos:{acessos + 5} *</th>
             </tr>
             <tr className="title">
               <th>&nbsp;</th>
