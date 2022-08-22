@@ -1,6 +1,6 @@
 import Container from "./styles"
 
-const { BallTriangle } = require("react-loader-spinner")
+const { TailSpin } = require("react-loader-spinner")
 
 
 const Loading = () => {
@@ -9,10 +9,15 @@ const Loading = () => {
 
   return (
     <Container>
-      <BallTriangle
-        height="100"
-        width="100"
-        color='grey'
+      <TailSpin
+        height="80"
+        width="80"
+        color="grey"
+        ariaLabel="tail-spin-loading"
+        radius="1"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
       />
     </Container>
   )

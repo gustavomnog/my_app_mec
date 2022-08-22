@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <>
         <Routes>
-          <Route path="/" element={<Proposta />} />
+          <Route path=":codproposta/:codcliente" element={<Proposta />} />
         </Routes>
       <GlobalStyle />
       </>

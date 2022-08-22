@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
+import { useParams } from 'react-router-dom';
 
 import Topo from "./Topo/Topo"
 import Orcamento from "./Orcamento/Orcamento"
 import Loading from "../Loading/Loading"
 import valorTotal from "../Acessos/Acessos"
+import Header from "../Header/Header"
+import api from "../../services/services"
 
 
 const Proposta = () => {
@@ -17,11 +19,10 @@ const Proposta = () => {
   const [totalMecauto, setTotalMecauto] = useState({})
   const [totalBox, setTotalBox] = useState({})
 
-
-
-
   const [carregando, setCarregando] = useState(true)
 
+
+let {codproposta, codcliente} = useParams()
 
   useEffect(() => {
     let valoresMecauto = []
@@ -31,7 +32,7 @@ const Proposta = () => {
 
     async function Consultar() {
 
-      await axios.get('https://www.sistemacicom.com.br/api/proposta/435/10136')
+      await api.get(`/proposta/${codproposta}/${codcliente}`)
         .then(({ data }) => {
           setNome(data.CM_NOME)
           setValidade(new Date(data.CM_DATA_VALIDADE.substring(0, 10) + 'T01:00:00'))
@@ -39,10 +40,10 @@ const Proposta = () => {
           setDescontoFilial(data.CM_DESCONTO_FILIAL)
         })
 
-      await axios.get('https://www.sistemacicom.com.br/api/modulos/435')
+      await api.get(`/modulos/${codproposta}`)
         .then(({ data }) => listaModulos = data)
 
-      await axios.get('https://www.sistemacicom.com.br/api/proposta/modulos/435')
+      await api.get(`/proposta/modulos/${codproposta}`)
         .then(({ data }) => modulosProposta = data)
 
       const lista = listaModulos.map(modulo => {
@@ -66,62 +67,49 @@ const Proposta = () => {
       setListaAtual(lista)
 
 
-      await axios.get('https://www.sistemacicom.com.br/api/proposta/precosist/22')
+      await api.get('/proposta/precosist/22')
         .then(({ data }) => valoresMecauto = data)
 
-      await axios.get('https://www.sistemacicom.com.br/api/proposta/precosist/35')
+      await api.get('/proposta/precosist/35')
         .then(({ data }) => valoresBox = data)
 
 
-      const valoresModulos = {
-        ANU: 0,
-        ANU2: 0,
-        ANU3: 0,
-        ANU4: 0,
-        SEM: 0,
-        SEM2: 0,
-        TRI: 0,
-        MEN: 0,
-      }
 
       const marcados = lista.filter(modulo => modulo.MARC === true)
 
+      let valorMecModulos = valoresMecauto
+      let valorBoxModulos = valoresBox
+      
       marcados.forEach(modulo => {
-        for (const i in valoresModulos) {
-          valoresModulos[i] = valoresModulos[i] + modulo[i]
+        for (const i in valorMecModulos) {
+          valorMecModulos[i] = valorMecModulos[i] + modulo[i]
+        }
+        for (const i in valorBoxModulos) {
+          valorBoxModulos[i] = valorBoxModulos[i] + modulo[i]
         }
       })
-
-
-      let valorMecModulos = valoresMecauto
-      for (const i in valorMecModulos) {
-        valorMecModulos[i] = valorMecModulos[i] + valoresModulos[i]
-      }
 
       const valorTotalMec = valorTotal(valorMecModulos, descontoFilial, acessos)
       setTotalMecauto(valorTotalMec)
 
-
-
-      let valorBoxModulos = valoresBox
-      for (const i in valorBoxModulos) {
-        valorBoxModulos[i] = valorBoxModulos[i] + valoresModulos[i]
-      }
-
       const valorTotalBox = valorTotal(valorBoxModulos, descontoFilial, acessos)
-
       setTotalBox(valorTotalBox)
 
       setCarregando(false)
-      
+
     }
     Consultar()
-    
+
   }, [])
-  
+
 
   if (carregando) {
-    return (<Loading />)
+    return (
+      <>
+        <Header />
+        <Loading />
+      </>
+    )
   } else {
     return (
       <>

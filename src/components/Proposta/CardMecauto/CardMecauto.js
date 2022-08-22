@@ -1,7 +1,12 @@
 import { Container, Tabela, Titulo } from "./styles"
 
-const CardMecauto = ({valorSistemaMec, acessos}) => {
-  const {ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN} = valorSistemaMec
+const CardMecauto = ({ valorSistemaMec, acessos }) => {
+  const { ANU, ANU2, ANU3, SEM, SEM2, TRI, MEN } = valorSistemaMec
+
+  const descontoAnu = Math.round((((MEN * 12) - ANU) / (MEN * 12)) * 100)
+  const descontoSem = Math.round((((MEN * 6) - SEM) / (MEN * 6)) * 100)
+  const descontoTri = Math.round((((MEN * 3) - TRI) / (MEN * 3)) * 100)
+
   
   return (
     <Container>
@@ -23,31 +28,31 @@ const CardMecauto = ({valorSistemaMec, acessos}) => {
             </tr>
             <tr className="anu">
               <th>ANUAL:
-                <span>Desconto de 28%</span>
+                <span>Desconto de {descontoAnu}%</span>
               </th>
-              <td>{ANU.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
-              <td>{ANU2.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
-              <td>{ANU3.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{ANU.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{ANU2.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{ANU3.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
             </tr>
             <tr className="sem">
               <th>SEMESTRAL:
-                <span>Desconto de 28%</span>
+                <span>Desconto de {descontoSem}%</span>
               </th>
-              <td>{SEM.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
-              <td>{SEM2.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{SEM.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
+              <td>{SEM2.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
             </tr>
             <tr className="tri">
               <th>TRIMESTRAL:
-                <span>Desconto de 28%</span>
+                <span>Desconto de {descontoTri}%</span>
               </th>
-              <td>{TRI.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{TRI.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>
             <tr className="men">
               <th>MENSAL:</th>
-              <td>{MEN.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}).replace('R$', '')}</td>
+              <td>{MEN.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }).replace('R$', '')}</td>
               <td>-</td>
               <td>-</td>
             </tr>
