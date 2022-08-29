@@ -6,9 +6,9 @@ const CheckModulos = ({ nomeModulo, selecionado }) => {
 
   return (
     <Container>
-      <label className={selecionado ? "containerBold" : "container"}>
+      <label className="container">
         <div className="input-wrapper">
-          <input type="checkbox" checked={selecionado}  readOnly/>
+          <input type="checkbox" defaultChecked={selecionado} />
           <span className="checkmark"></span>
         </div>
         <span className="text">{nomeModulo}</span>

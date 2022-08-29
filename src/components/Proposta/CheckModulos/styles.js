@@ -9,6 +9,7 @@ padding-bottom: 16.13px;
   display: flex;
   align-items: center;
 }
+
   
 .containerBold {
   display: flex;
@@ -37,6 +38,7 @@ input:checked + .checkmark {
 input:checked + .checkmark::after{
   display: block;
 }
+
 
 
 .checkmark{

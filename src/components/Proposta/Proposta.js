@@ -7,6 +7,7 @@ import Loading from "../Loading/Loading"
 import valorTotal from "../Acessos/Acessos"
 import Header from "../Header/Header"
 import api from "../../services/services"
+import Simulador from "../Simulador/Simulador";
 
 
 const Proposta = () => {
@@ -22,7 +23,7 @@ const Proposta = () => {
   const [carregando, setCarregando] = useState(true)
 
 
-let {codproposta, codcliente} = useParams()
+  let { codproposta, codcliente } = useParams()
 
   useEffect(() => {
     let valoresMecauto = []
@@ -79,7 +80,7 @@ let {codproposta, codcliente} = useParams()
 
       let valorMecModulos = valoresMecauto
       let valorBoxModulos = valoresBox
-      
+
       marcados.forEach(modulo => {
         for (const i in valorMecModulos) {
           valorMecModulos[i] = valorMecModulos[i] + modulo[i]
@@ -120,6 +121,9 @@ let {codproposta, codcliente} = useParams()
           valorTotalBox={totalBox}
           descontoFilial={descontoFilial}
           acessos={acessos}
+        />
+        <Simulador
+          lista={listaAtual}
         />
       </>
     )
