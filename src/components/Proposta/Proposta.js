@@ -11,23 +11,23 @@ import Simulador from "../Simulador/Simulador";
 
 
 const Proposta = () => {
+  let { codproposta, codcliente } = useParams()
 
   const [nome, setNome] = useState()
   const [validade, setValidade] = useState(new Date())
   const [acessos, setAcessos] = useState(0)
-  const [descontoFilial, setDescontoFilial] = useState(0)
+  const [descontoFilial, setDescontoFilial] = useState("")
   const [listaAtual, setListaAtual] = useState([])
+  const [valoresMec, setValoresMec] = useState([])
+  const [valoresBox, setValoresBox] = useState([])
   const [totalMecauto, setTotalMecauto] = useState({})
   const [totalBox, setTotalBox] = useState({})
 
   const [carregando, setCarregando] = useState(true)
 
 
-  let { codproposta, codcliente } = useParams()
 
   useEffect(() => {
-    let valoresMecauto = []
-    let valoresBox = []
     let listaModulos = []
     let modulosProposta = []
 
@@ -67,19 +67,46 @@ const Proposta = () => {
 
       setListaAtual(lista)
 
+      let valoresMecauto = []
+      let valoresBox = []
 
       await api.get('/proposta/precosist/22')
-        .then(({ data }) => valoresMecauto = data)
+        .then(({ data }) => {
+          valoresMecauto = data
+          setValoresMec(data)
+        })
+
+      const valorMecModulos = {
+        "MEN": valoresMecauto.MEN,
+        "TRI": valoresMecauto.TRI,
+        "SEM": valoresMecauto.SEM,
+        "SEM2": valoresMecauto.SEM2,
+        "ANU": valoresMecauto.ANU,
+        "ANU2": valoresMecauto.ANU2,
+        "ANU3": valoresMecauto.ANU3,
+        "ANU4": valoresMecauto.ANU4
+      }
 
       await api.get('/proposta/precosist/35')
-        .then(({ data }) => valoresBox = data)
+        .then(({ data }) => {
+          valoresBox = data
+          setValoresBox(data)
+        })
 
+      const valorBoxModulos = {
+        "MEN": valoresBox.MEN,
+        "TRI": valoresBox.TRI,
+        "SEM": valoresBox.SEM,
+        "SEM2": valoresBox.SEM2,
+        "ANU": valoresBox.ANU,
+        "ANU2": valoresBox.ANU2,
+        "ANU3": valoresBox.ANU3,
+        "ANU4": valoresBox.ANU4
+      }
 
 
       const marcados = lista.filter(modulo => modulo.MARC === true)
 
-      let valorMecModulos = valoresMecauto
-      let valorBoxModulos = valoresBox
 
       marcados.forEach(modulo => {
         for (const i in valorMecModulos) {
@@ -97,12 +124,10 @@ const Proposta = () => {
       setTotalBox(valorTotalBox)
 
       setCarregando(false)
-
+  
     }
     Consultar()
-
   }, [])
-
 
   if (carregando) {
     return (
@@ -124,6 +149,10 @@ const Proposta = () => {
         />
         <Simulador
           lista={listaAtual}
+          valoresMec={valoresMec}
+          valoresBox={valoresBox}
+          descontoFilial={descontoFilial}
+          acessosProposta={acessos}
         />
       </>
     )

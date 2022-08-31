@@ -8,7 +8,7 @@ function valorTotal(valorSistema, descontoFilial, acessos) {
       valorSistema[i] = ((valorSistema[i] * (0.05 * (acessos - 5)))) + cincoPrimeiros
     }
 
-    if (descontoFilial) {
+    if (descontoFilial === "S") {
       valorSistema[i] = valorSistema[i] - ((valorSistema[i] * 10) / 100)
     }
 

@@ -5,11 +5,19 @@ width: 100%;
 box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.2);
 border-radius: 30px;
 padding-bottom: 5px;
+
+
+.tituloMecauto{
+  background-color: var(--blue);
+}
+
+.tituloBox{
+background-color: var(--green-dark);
+}
 `
 
 const Titulo = styled.div`
 height: 75px;
-background-color: var(--blue);
 border-radius: 30px 30px 0px 0px;
 color: var(--white);
 font-size: 20px;

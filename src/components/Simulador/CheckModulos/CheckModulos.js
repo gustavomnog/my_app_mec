@@ -1,14 +1,14 @@
 import { Container } from "./styles"
 
 
-const CheckModulos = ({ nomeModulo, selecionado }) => {
+const CheckModulos = ({ nomeModulo, selecionado, handleCheckModulo, id }) => {
 
 
   return (
     <Container>
       <label className="container">
         <div className="input-wrapper">
-          <input type="checkbox" defaultChecked={selecionado} />
+          <input type="checkbox" id={id} defaultChecked={selecionado} onChange={handleCheckModulo}/>
           <span className="checkmark"></span>
         </div>
         <span className="text">{nomeModulo}</span>

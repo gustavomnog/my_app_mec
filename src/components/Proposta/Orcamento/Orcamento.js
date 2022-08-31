@@ -7,7 +7,6 @@ import CardBox from "../CardBox/CardBox"
 
 const Orcamento = ({ lista, valorTotalMec, valorTotalBox, acessos}) => {
   
-
   return (
     <Container>
       <Titulo>Seu orçamento</Titulo>

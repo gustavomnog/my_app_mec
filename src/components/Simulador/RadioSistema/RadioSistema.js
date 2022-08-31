@@ -6,7 +6,7 @@ const RadioSistema = ({ sistema, handleCheckSystem }) => {
     <Container>
       <label className={sistema === "MECAUTO" ? "containerMecauto" : "containerBox"}>
         <div className="input-wrapper">
-          <input type="radio" name="radio" onClick={handleCheckSystem} />
+          <input type="radio" name="radio" onClick={handleCheckSystem} defaultChecked={sistema === "MECAUTO" ? true : false}/>
           <span className="checkmark"></span>
         </div>
         <span className="text">{sistema}</span>
