@@ -28,16 +28,23 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
   }
 
   const handleChangeAccess = input => {
-    setAcessos((input.target.value) - 5 )
+    setAcessos((input.target.value) - 5)
   }
 
   const handleCheckModulo = moduloAlterado => {
+    if (moduloAlterado.target.id === "5" || moduloAlterado.target.id === "6") {
+      alert("VEndas")
+    }
+
     const listaAlterada = listaAtualizada.map(modulo => {
       if (modulo.ID === Number(moduloAlterado.target.id)) {
         modulo.MARC = moduloAlterado.target.checked
       }
       return modulo
     })
+
+
+
     setListaAtualizada(listaAlterada)
   }
 
@@ -76,19 +83,14 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
 
     const valorTotalMec = valorTotal(mecautoModulos, descontoFilial, acessos)
     setTotalMecauto(valorTotalMec)
-    console.log(valorTotalMec)
 
     const valorTotalBox = valorTotal(boxModulos, descontoFilial, acessos)
     setTotalBox(valorTotalBox)
-    console.log(valorTotalBox)
   }
-  
+
   useEffect(() => {
     Calcular()
   }, [sistema, acessos, listaAtualizada])
-
-
-
 
 
 
@@ -134,7 +136,7 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
             </Modulos>
           </ContainerModulos>
           <ContainerCard>
-            <CardSistema valoresTotais={sistema === "mecauto" ? totalMecauto : totalBox} sistema={sistema === "mecauto" ? "MECAUTO" : "MECAUTO-BOX"}/>
+            <CardSistema valoresTotais={sistema === "mecauto" ? totalMecauto : totalBox} sistema={sistema === "mecauto" ? "MECAUTO" : "MECAUTO-BOX"} />
           </ContainerCard>
           <Obs>* Os descontos citados acima, são em comparação ao plano MENSAL.</Obs>
         </Container>

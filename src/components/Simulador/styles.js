@@ -23,7 +23,7 @@ background: var(--background-red);
 `
 
 const ContainerSistema = styled.div`
-margin: 20px;
+margin: 15.5px;
 border: 1px solid #C2C3C5;
 border-radius: 30px;
 text-align:center;
@@ -44,7 +44,7 @@ padding-bottom: 16.13px;
 `
 
 const ContainerAcessos = styled.div`
-margin: 20px;
+margin: 15.5px;
 border: 1px solid #C2C3C5;
 border-radius: 30px;
 text-align:center;

@@ -8,6 +8,7 @@ import valorTotal from "../Acessos/Acessos"
 import Header from "../Header/Header"
 import api from "../../services/services"
 import Simulador from "../Simulador/Simulador";
+import Comparador from "../Comparador/Comparador";
 
 
 const Proposta = () => {
@@ -154,6 +155,7 @@ const Proposta = () => {
           descontoFilial={descontoFilial}
           acessosProposta={acessos}
         />
+        <Comparador />
       </>
     )
   }
