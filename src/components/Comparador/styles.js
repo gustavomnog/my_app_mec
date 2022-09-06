@@ -8,6 +8,7 @@ border-radius: 30px;
 margin: 34px auto 0 auto;
 background-color: var(--background-white);
 margin-bottom: 38px;
+padding-bottom: 1px;
 `
 
 const Titulo = styled.div`

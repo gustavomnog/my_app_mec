@@ -4,18 +4,13 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyles = createGlobalStyle`
   :root {
      --red: #CA2828;
-     --red-dark: #E40D0D;
+     --red-dark: #AD1818;
      
      --blue: #334B88;
-     --blue-light: rgba(191, 204, 237, 0.5);
 
-     --green: #19962D;
      --green-dark: #2D6D3F;
-     --green-light: rgba(138, 235, 165, 0.2);
      
      --grey: #474747; 
-     --grey-light: rgba(196, 196, 196, 0.1);
-     --grey-dark: #7C7979;
     
      --white: #FFFFFF;
      
@@ -56,10 +51,6 @@ const GlobalStyles = createGlobalStyle`
   body, input, textarea, button {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
-  }
-
-  h1, h2, h3, h4, h5, h6, strong {
-      font-weight: 600;
   }
 
   button {

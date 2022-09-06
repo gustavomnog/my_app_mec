@@ -94,15 +94,10 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
 
 
 
-  if (!exibir) {
-    return (
+  return (
+    <>
       <Button handleOpenSimulator={handleOpenSimulator} exibir={exibir} />
-    )
-  } else {
-
-    return (
-      <>
-        <Button handleOpenSimulator={handleOpenSimulator} exibir={exibir} />
+      {exibir && (
         <Container>
           <Titulo>Simule um novo orçamento:</Titulo>
           <ContainerSistema>
@@ -122,7 +117,6 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
             <Modulos>
               {
                 lista.map(modulo => {
-
                   return (
                     <CheckModulos
                       key={modulo.ID}
@@ -140,9 +134,11 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
           </ContainerCard>
           <Obs>* Os descontos citados acima, são em comparação ao plano MENSAL.</Obs>
         </Container>
-      </>
-    )
-  }
+      )
+      }
+    </>
+  )
+
 }
 
 export default Simulador
