@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { toast, ToastContainer } from "react-toastify"
 
 import Button from "./Button/Button"
 import RadioSistema from "./RadioSistema/RadioSistema"
@@ -9,15 +10,17 @@ import valorTotal from "../Acessos/Acessos"
 
 
 import { Container, Titulo, ContainerSistema, TituloSistema, ContainerRadio, ContainerAcessos, ContainerModulos, TituloModulos, Modulos, ContainerCard, Obs } from "./styles"
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosProposta }) => {
   const [exibir, setExibir] = useState(false)
   const [sistema, setSistema] = useState("mecauto")
   const [acessos, setAcessos] = useState(acessosProposta)
-  const [listaAtualizada, setListaAtualizada] = useState(lista)
+  const [listaAtual, setListaAtual] = useState(lista)
   const [totalMecauto, setTotalMecauto] = useState()
   const [totalBox, setTotalBox] = useState()
+  
 
   const handleOpenSimulator = () => {
     setExibir(!exibir)
@@ -32,20 +35,37 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
   }
 
   const handleCheckModulo = moduloAlterado => {
-    if (moduloAlterado.target.id === "5" || moduloAlterado.target.id === "6") {
-      alert("VEndas")
+    const oficina = listaAtual.filter(modulo => modulo.ID === 6)
+    const venda = listaAtual.filter(modulo => modulo.ID === 5)
+
+
+
+    if (!oficina[0].MARC && moduloAlterado.target.id === "5" && moduloAlterado.target.checked === false) {
+      moduloAlterado.target.checked = true
+      toast.warn('É obrigatório escolher o módulo OFICINA e/ou VENDA.', {
+        position: "top-center",
+        toastId: "customId",
+      })
+
+    } else if (!venda[0].MARC && moduloAlterado.target.id === "6" && moduloAlterado.target.checked === false) {
+      moduloAlterado.target.checked = true
+      toast.warn('É obrigatório escolher o módulo OFICINA e/ou VENDA.', {
+        position: "top-center",
+        toastId: "customId",
+      })
     }
 
-    const listaAlterada = listaAtualizada.map(modulo => {
-      if (modulo.ID === Number(moduloAlterado.target.id)) {
-        modulo.MARC = moduloAlterado.target.checked
-      }
-      return modulo
-    })
+    else {
 
+      const listaAlterada = listaAtual.map(modulo => {
+        if (modulo.ID === Number(moduloAlterado.target.id)) {
+          modulo.MARC = moduloAlterado.target.checked
+        }
+        return modulo
+      })
+      setListaAtual(listaAlterada)
 
-
-    setListaAtualizada(listaAlterada)
+    }
   }
 
   const Calcular = () => {
@@ -70,7 +90,7 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
       "ANU3": valoresBox.ANU3,
       "ANU4": valoresBox.ANU4
     }
-    const marcados = listaAtualizada.filter(modulo => modulo.MARC === true)
+    const marcados = listaAtual.filter(modulo => modulo.MARC === true)
 
     marcados.forEach(modulo => {
       for (const i in mecautoModulos) {
@@ -90,12 +110,13 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
 
   useEffect(() => {
     Calcular()
-  }, [sistema, acessos, listaAtualizada])
+  }, [sistema, acessos, listaAtual])
 
 
 
   return (
     <>
+      <ToastContainer style={{ width: "770px", fontWeight: "bold" }} />
       <Button handleOpenSimulator={handleOpenSimulator} exibir={exibir} />
       {exibir && (
         <Container>
@@ -115,18 +136,7 @@ const Simulador = ({ lista, valoresMec, valoresBox, descontoFilial, acessosPropo
               <span>ESCOLHA OS MÓDULOS:</span>
             </TituloModulos>
             <Modulos>
-              {
-                lista.map(modulo => {
-                  return (
-                    <CheckModulos
-                      key={modulo.ID}
-                      id={modulo.ID}
-                      nomeModulo={modulo.DESCRICAO}
-                      selecionado={modulo.MARC}
-                      handleCheckModulo={handleCheckModulo}
-                    />)
-                })
-              }
+              <CheckModulos listaAtual={listaAtual} handleCheckModulo={handleCheckModulo} />
             </Modulos>
           </ContainerModulos>
           <ContainerCard>

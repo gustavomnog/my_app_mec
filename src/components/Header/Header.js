@@ -5,9 +5,7 @@ const Header = () => {
   return (
     <>
       <Container>
-        <ContainerLeft>
-          <h1>PROPOSTA COMERCIAL</h1>
-        </ContainerLeft>
+        <ContainerLeft>PROPOSTA COMERCIAL</ContainerLeft>
         <ContainerRight>
           <Logo src={logo} />
         </ContainerRight>

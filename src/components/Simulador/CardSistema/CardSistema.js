@@ -7,9 +7,6 @@ const CardSistema = ({ valoresTotais, sistema }) => {
   const descontoSem = Math.round((((MEN * 6) - SEM) / (MEN * 6)) * 100)
   const descontoTri = Math.round((((MEN * 3) - TRI) / (MEN * 3)) * 100)
 
-  
-console.log(sistema)
-
   return (
     <Container>
       <Titulo className={sistema === "MECAUTO" ? "tituloMecauto" : "tituloBox"}>VALORES {sistema}:</Titulo>

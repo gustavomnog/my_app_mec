@@ -8,6 +8,7 @@ padding-bottom: 16.13px;
 .container {
   display: flex;
   align-items: center;
+  cursor: pointer;
   
   
   .input-wrapper {

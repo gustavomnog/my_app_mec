@@ -12,6 +12,8 @@ align-items: center;
 width: 50vw;
 height: 70px;
 background: var(--background-grey);
+font-weight: 900;
+font-size: 30px;
 
 `
 const ContainerRight = styled.div`
@@ -26,7 +28,7 @@ text-align: center;
 
 const Logo = styled.img`
 width: 21.87rem;
-height: 3rem;
+height: 4rem;
 margin: auto;
 `
 
